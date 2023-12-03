@@ -6,15 +6,15 @@ local NUM_EPOCHS = 23;
 local SEED = 93078;
 
 local TASK = "SNLI";
-local DATA_DIR = "/home/swabhas/data/glue/" + TASK;
+local DATA_DIR = "input_data" + TASK;
 local FEATURES_CACHE_DIR = DATA_DIR + "/cache_" + SEED ;
 
-local TEST = "/home/swabhas/data/glue/SNLI/diagnostic_test.tsv";
+local TEST = "test_output/diagnostic_test.tsv";
 
 {
    "data_dir": DATA_DIR,
-   "model_type": "roberta",
-   "model_name_or_path": "roberta-large",
+   "model_type": "nli",
+   "model_name_or_path": "google/electra-small-discriminator",
    "task_name": TASK,
    "seed": SEED,
    "num_train_epochs": NUM_EPOCHS,
