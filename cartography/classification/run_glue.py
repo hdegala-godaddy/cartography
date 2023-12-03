@@ -40,6 +40,8 @@ from transformers import (
     BertTokenizer,
     RobertaConfig,
     RobertaTokenizer,
+    ElectraConfig,
+    ElectraTokenizer,
     get_linear_schedule_with_warmup,
 )
 
@@ -84,6 +86,7 @@ MODEL_CLASSES = {
     "bert_mc": (BertConfig, AdaptedBertForMultipleChoice, BertTokenizer),
     "roberta": (RobertaConfig, AdaptedRobertaForSequenceClassification, RobertaTokenizer),
     "roberta_mc": (RobertaConfig, AdaptedRobertaForMultipleChoice, RobertaTokenizer),
+    "google/small_electra": (ElectraConfig, AdaptedRobertaForMultipleChoice, ElectraTokenizer),
 }
 
 
