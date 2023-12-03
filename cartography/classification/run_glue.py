@@ -77,7 +77,7 @@ ALL_MODELS = sum(
         for conf in (
             BertConfig,
             RobertaConfig,
-            small_electra
+            ElectraConfig
         )
     ),
     (),

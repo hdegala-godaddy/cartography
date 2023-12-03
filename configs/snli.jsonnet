@@ -13,7 +13,7 @@ local TEST = "test_output/diagnostic_test.tsv";
 
 {
    "data_dir": DATA_DIR,
-   "model_type": "nli",
+   "model_type": "small_electra",
    "model_name_or_path": "google/electra-small-discriminator",
    "task_name": TASK,
    "seed": SEED,
