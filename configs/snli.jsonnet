@@ -5,7 +5,7 @@ local BATCH_SIZE = 96;
 local NUM_EPOCHS = 23;
 local SEED = 93078;
 
-local TASK = "snli";
+local TASK = "SNLI";
 local DATA_DIR = "input_data_" + TASK;
 local FEATURES_CACHE_DIR = DATA_DIR + "/cache_" + SEED ;
 
