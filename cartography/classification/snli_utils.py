@@ -15,9 +15,10 @@ class SNLIProcessor(DataProcessor):
         for (i, line) in enumerate(lines):
             if i == 0:
                 continue
-            guid = line[2] #"%s-%s" % (set_type, line[0])
-            text_a = line[7]
-            text_b = line[8]
+            #guid = line[2] #"%s-%s" % (set_type, line[0])
+            guid = i #"%s-%s" % (set_type, line[0])
+            text_a = line[1]
+            text_b = line[2]
             label = line[-1]
             if label == "-" or label == "":
                 continue
