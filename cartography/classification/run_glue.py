@@ -75,8 +75,8 @@ ALL_MODELS = sum(
     (
         tuple(conf.pretrained_config_archive_map.keys())
         for conf in (
-            # BertConfig,
-            # RobertaConfig,
+            BertConfig,
+            RobertaConfig,
             ElectraConfig
         )
     ),
