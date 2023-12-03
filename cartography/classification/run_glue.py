@@ -73,10 +73,10 @@ logger = logging.getLogger(__name__)
 
 ALL_MODELS = sum(
     (
-        tuple(conf.pretrained_config_archive_map.keys())
+        tuple(conf.ELECTRA_PRETRAINED_CONFIG_ARCHIVE_MAP.keys())
         for conf in (
-            BertConfig,
-            RobertaConfig,
+            # BertConfig,
+            # RobertaConfig,
             ElectraConfig
         )
     ),
