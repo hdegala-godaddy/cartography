@@ -86,17 +86,19 @@ ELECTRA_PRETRAINED_CONFIG_ARCHIVE_MAP = {
     ),
 }
 
-ALL_MODELS = sum(
-    (
-        tuple(ELECTRA_PRETRAINED_CONFIG_ARCHIVE_MAP.keys())
-        for conf in (
-            # BertConfig,
-            # RobertaConfig,
-            ElectraConfig
-        )
-    ),
-    (),
-)
+# ALL_MODELS = sum(
+#     (
+#         tuple(ELECTRA_PRETRAINED_CONFIG_ARCHIVE_MAP.keys())
+#         for conf in (
+#             # BertConfig,
+#             # RobertaConfig,
+#             ElectraConfig
+#         )
+#     ),
+#     (),
+# )
+
+ALL_MODELS = tuple(ELECTRA_PRETRAINED_CONFIG_ARCHIVE_MAP.keys())
 
 MODEL_CLASSES = {
     "bert": (BertConfig, AdaptedBertForSequenceClassification, BertTokenizer),
