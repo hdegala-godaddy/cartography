@@ -16,10 +16,16 @@ class SNLIProcessor(DataProcessor):
             if i == 0:
                 continue
             #guid = line[2] #"%s-%s" % (set_type, line[0])
-            guid = i #"%s-%s" % (set_type, line[0])
-            text_a = line[1]
-            text_b = line[2]
-            label = line[-1]
+            # guid = i #"%s-%s" % (set_type, line[0])
+            # text_a = line[1]
+            # text_b = line[2]
+            # label = line[-1]
+
+            guid = line[1] #"%s-%s" % (set_type, line[0])
+            text_a = line[3]
+            text_b = line[4]
+            label = line[2]
+
             if label == "-" or label == "":
                 continue
             examples.append(
