@@ -54,7 +54,8 @@ from cartography.classification.models import (
     AdaptedBertForMultipleChoice,
     AdaptedBertForSequenceClassification,
     AdaptedRobertaForMultipleChoice,
-    AdaptedRobertaForSequenceClassification
+    AdaptedRobertaForSequenceClassification,
+    AdaptedElectraForSequenceClassification
 )
 from cartography.classification.multiple_choice_utils import convert_mc_examples_to_features
 from cartography.classification.params import Params, save_args_to_file
@@ -76,6 +77,7 @@ ALL_MODELS = sum(
         for conf in (
             BertConfig,
             RobertaConfig,
+            small_electra
         )
     ),
     (),
@@ -86,7 +88,7 @@ MODEL_CLASSES = {
     "bert_mc": (BertConfig, AdaptedBertForMultipleChoice, BertTokenizer),
     "roberta": (RobertaConfig, AdaptedRobertaForSequenceClassification, RobertaTokenizer),
     "roberta_mc": (RobertaConfig, AdaptedRobertaForMultipleChoice, RobertaTokenizer),
-    "google/small_electra": (ElectraConfig, AdaptedRobertaForMultipleChoice, ElectraTokenizer),
+    "small_electra": (ElectraConfig, AdaptedElectraForSequenceClassification, ElectraTokenizer),
 }
 
 

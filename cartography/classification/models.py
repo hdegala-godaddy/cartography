@@ -6,6 +6,53 @@ from transformers import (BertForMultipleChoice,
                           RobertaForSequenceClassification)
 
 
+from torch.nn import CrossEntropyLoss, MSELoss
+from transformers import ElectraForSequenceClassification, ElectraConfig
+
+class AdaptedElectraForSequenceClassification(ElectraForSequenceClassification):
+    def __init__(self, config):
+        super().__init__(config)
+
+    def forward(
+        self,
+        input_ids=None,
+        attention_mask=None,
+        token_type_ids=None,
+        position_ids=None,
+        head_mask=None,
+        inputs_embeds=None,
+        labels=None,
+    ):
+        outputs = self.electra(
+            input_ids,
+            attention_mask=attention_mask,
+            token_type_ids=token_type_ids,
+            position_ids=position_ids,
+            head_mask=head_mask,
+            inputs_embeds=inputs_embeds,
+        )
+        sequence_output = outputs[0]
+        logits = self.classifier(sequence_output)
+
+        outputs = (logits,) + outputs  # Modified from the original `Transformers` since we need sequence output to summarize.
+        if labels is not None:
+            if self.num_labels == 1:
+                # We are doing regression
+                loss_fct = MSELoss()
+                loss = loss_fct(logits.view(-1), labels.view(-1))
+            else:
+                loss_fct = CrossEntropyLoss()
+                loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1))
+            outputs = (loss,) + outputs
+
+        return outputs  # (loss), logits, sequence_output, pooled_sequence_output, (hidden_states), (attentions)
+
+# Example usage:
+#config = ElectraConfig.from_pretrained("google/electra-small-discriminator")
+#model = AdaptedElectraForSequenceClassification(config)
+
+# Now you can use this model for sequence classification as shown in your provided example for Roberta.
+
 class AdaptedRobertaForSequenceClassification(RobertaForSequenceClassification):
     def __init__(self, config):
         super().__init__(config)
