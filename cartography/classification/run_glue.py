@@ -348,7 +348,7 @@ def train(args, train_dataset, model, tokenizer):
                               train_logits=list(train_logits),
                               train_golds=list(train_golds))
         train_result = compute_metrics(args.task_name, np.argmax(train_logits, axis=1), train_golds)
-        train_acc = train_result["acc"]
+        train_acc = train_result["mnli/acc"]
 
         epoch_log = {"epoch": epoch,
                      "train_acc": train_acc,
@@ -381,7 +381,7 @@ def train(args, train_dataset, model, tokenizer):
 def save_model(args, model, tokenizer, epoch, best_epoch, best_dev_performance):
     results, _ = evaluate(args, model, tokenizer, prefix="in_training")
     print("Results ########### : ", results)
-    desired_metric = "acc"
+    desired_metric = "mnli/acc"
 
     # Check if the desired metric is present in the results
     if desired_metric not in results:
