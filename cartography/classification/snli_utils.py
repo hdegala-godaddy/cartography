@@ -21,10 +21,10 @@ class SNLIProcessor(DataProcessor):
             # text_b = line[2]
             # label = line[-1]
 
-            guid = line[1] #"%s-%s" % (set_type, line[0])
-            text_a = line[3]
-            text_b = line[4]
-            label = line[2]
+            guid = line[0] #"%s-%s" % (set_type, line[0])
+            text_a = line[2]
+            text_b = line[3]
+            label = line[1]
 
             if label == "-" or label == "":
                 continue

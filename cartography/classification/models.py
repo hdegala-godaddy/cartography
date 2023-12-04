@@ -34,10 +34,11 @@ class AdaptedElectraForSequenceClassification(ElectraForSequenceClassification):
         sequence_output = outputs[0]
         logits = self.classifier(sequence_output)
 
-        outputs = (logits,) + outputs  # Modified from the original `Transformers` since we need sequence output to summarize.
+        outputs = tuple([logits] + list(outputs))  # Modified from the original `Transformers` since we need sequence output to summarize.
+        
         if labels is not None:
             if self.num_labels == 1:
-                # We are doing regression
+                #  We are doing regression
                 loss_fct = MSELoss()
                 loss = loss_fct(logits.view(-1), labels.view(-1))
             else:

@@ -81,7 +81,7 @@ def adapted_glue_convert_examples_to_features(
 
     """
     is_tf_dataset = False
-    print("OutMode ###########: ", output_mode)
+    #print("OutMode ###########: ", output_mode)
     if is_tf_available() and isinstance(examples, tf.data.Dataset):
         is_tf_dataset = True
 
@@ -135,7 +135,7 @@ def adapted_glue_convert_examples_to_features(
         )
 
         if output_mode == "classification":
-            print("Label_map $$$$$", label_map)
+            #print("Label_map $$$$$", label_map)
             label = label_map[example.label]
         elif output_mode == "regression":
             label = float(example.label)
