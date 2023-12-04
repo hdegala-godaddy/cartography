@@ -234,8 +234,9 @@ def write_filtered_data(args, train_dy_metrics):
           selected_id = int(selected_id)
         elif args.task_name == "WINOGRANDE":
           selected_id = str(int(selected_id))
-        record = train_numeric[selected_id]
-        outfile.write(record + "\n")
+        if selected_id in train_numeric:  
+          record = train_numeric[selected_id]
+          outfile.write(record + "\n")
 
     logger.info(f"Wrote {num_samples} samples to {outdir}.")
 
