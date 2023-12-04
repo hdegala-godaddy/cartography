@@ -114,6 +114,11 @@ def compute_train_dy_metrics(training_dynamics, args):
       is_correct = (prediction == record["gold"]).item()
       correctness_trend.append(is_correct)
 
+      if i not in logits:
+        logits[i] = []  
+      if i not in targets:
+        targets[i] = []  
+
       training_accuracy[i] += is_correct
       logits[i].append(epoch_logits)
       targets[i].append(record["gold"])
