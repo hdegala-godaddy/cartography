@@ -378,13 +378,19 @@ def train(args, train_dataset, model, tokenizer):
 
     return global_step, tr_loss / global_step
 
-
-def save_model(args, model, tokenizer, epoch, best_epoch,  best_dev_performance):
+def save_model(args, model, tokenizer, epoch, best_epoch, best_dev_performance):
     results, _ = evaluate(args, model, tokenizer, prefix="in_training")
-    # TODO(SS): change hard coding `acc` as the desired metric, might not work for all tasks.
+    print("Results ########### : ", results)
     desired_metric = "acc"
-    dev_performance = results.get(desired_metric)
-    if dev_performance > best_dev_performance:
+
+    # Check if the desired metric is present in the results
+    if desired_metric not in results:
+        print(f"Metric '{desired_metric}' not found in results. Skipping model saving.")
+        return best_dev_performance, best_epoch
+
+    dev_performance = results[desired_metric]
+
+    if dev_performance is not None and dev_performance > best_dev_performance:
         best_epoch = epoch
         best_dev_performance = dev_performance
 
@@ -396,8 +402,31 @@ def save_model(args, model, tokenizer, epoch, best_epoch,  best_dev_performance)
         torch.save(args, os.path.join(args.output_dir, "training_args.bin"))
 
         logger.info(f"*** Found BEST model, and saved checkpoint. "
-            f"BEST dev performance : {dev_performance:.4f} ***")
+                    f"BEST dev performance : {dev_performance:.4f} ***")
     return best_dev_performance, best_epoch
+
+
+
+
+# def save_model(args, model, tokenizer, epoch, best_epoch,  best_dev_performance):
+#     results, _ = evaluate(args, model, tokenizer, prefix="in_training")
+#     # TODO(SS): change hard coding `acc` as the desired metric, might not work for all tasks.
+#     desired_metric = "acc"
+#     dev_performance = results.get(desired_metric)
+#     if dev_performance > best_dev_performance:
+#         best_epoch = epoch
+#         best_dev_performance = dev_performance
+
+#         # Save model checkpoint
+#         # Take care of distributed/parallel training
+#         model_to_save = (model.module if hasattr(model, "module") else model)
+#         model_to_save.save_pretrained(args.output_dir)
+#         tokenizer.save_pretrained(args.output_dir)
+#         torch.save(args, os.path.join(args.output_dir, "training_args.bin"))
+
+#         logger.info(f"*** Found BEST model, and saved checkpoint. "
+#             f"BEST dev performance : {dev_performance:.4f} ***")
+#     return best_dev_performance, best_epoch
 
 
 def evaluate(args, model, tokenizer, prefix="", eval_split="dev"):
